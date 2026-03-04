@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from gestionale.clienti import ClienteRecord
-from gestionale.prodotti import ProdottoRecord
+from gestionale.core.clienti import ClienteRecord
+from gestionale.core.prodotti import ProdottoRecord
 
 @dataclass
 class RigaOrdine:
