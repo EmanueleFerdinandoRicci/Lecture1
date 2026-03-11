@@ -98,6 +98,12 @@ class ProdottoRecord:
     name: str
     prezzo_unitario: float
 
+    def __hash__(self):
+        return hash((self.name,self.prezzo_unitario))
+
+    def __str__(self):
+        return f"{self.name} -- {self.prezzo_unitario}"
+
 from typing import Protocol
 
 #uso Protocol come classe da cui ereditare

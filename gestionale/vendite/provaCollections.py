@@ -1,6 +1,11 @@
 import copy
+from collections import Counter
 
+from networkx.classes import non_edges
+
+from gestionale.core.clienti import ClienteRecord
 from gestionale.core.prodotti import ProdottoRecord
+from gestionale.vendite.ordini import Ordine
 
 p1 = ProdottoRecord("Laptop", 1200.0)
 p2 = ProdottoRecord("Mouse", 20.0)
@@ -116,3 +121,136 @@ s.issuperset(s1) #se gli elementi di s sono contenuti in s1
 s1.isdisjoint(s) #se gli elementi di s e s1 sono diversi (1 se vero)
 
 #dizionari
+catalogo = {
+    "LAP001":ProdottoRecord("Laptop", 1200.0),
+    "LAP002":ProdottoRecord("Laptop Pro", 2300.0),
+    "MOU001":ProdottoRecord("Mouse", 20.0),
+    "AUR001":ProdottoRecord("Auricolari", 250.0)
+}
+
+cod = "LAP002"
+prod= catalogo[cod] #così non devo fare i cicli
+print(f"Il prodotto con codice {cod} è {prod}")
+
+prod1 = catalogo.get("NONESISTE") #con il get mette non se lo avessi solo cercato dava errore
+if prod1 is None:
+    print("Prodotto non trovato")
+
+prod2 = catalogo.get("NONESISTE",ProdottoRecord("NunTeConosco", 0.0)) #o Sconosciuto
+print(prod2)
+
+keys = list(catalogo.keys())
+values = list(catalogo.values())
+#danno entrambi set con chiavi o valori o con list davanti diventa lista
+
+for k in keys:
+    print(k)
+for v in values:
+    print(v)
+
+for key,val in catalogo.items():
+    print(f"Cod {key} è associata a : {val}")
+
+#rimuovere
+rimosso = catalogo.pop("LAP002")
+print(rimosso)
+
+#dict comprehension
+prezzi = {codice: prod.prezzo_unitario for codice, prod in catalogo.items()}
+
+#DA RICORDARE PER DICT
+#v = dict[key] #leggere ma se non esiste key da errore
+#dict[key] = v #scrivere
+#v = dict.get(key,default) #legge senza possibile errore di keyerror
+#p = dict.pop(key) #da il valore che  cancella dal dizionario
+#dict.clear() #toglie tutto
+#dict.keys()
+#dict.values()
+#dict.items() #coppie key value
+#key in dict #verifica se chiave in dizionario
+
+"""Esercizio
+Per ciascuno dei seguenti casi, decidere quale struttura usare:"""
+
+"""1) Memorizzare un elenco di ordini che dovranno poi essere processare in ordine di arrivo  LISTA"""
+
+ordini_da_processare=[]
+o1 = Ordine([],ClienteRecord("Mario Rossi","mariorossi@gmail.com","Gold"))
+o2 = Ordine([],ClienteRecord("Vik Vik","vikivk@gmail.com","Gold"))
+o3 = Ordine([],ClienteRecord("Tip Tap","tiptap@gmail.com","Gold"))
+ordini_da_processare.append((o1,0))
+ordini_da_processare.append((o2,10))
+ordini_da_processare.append((o3,3))
+
+"""2) Memorizzare i CF dei clienti (univoco)  SET"""
+
+codici_fiscali={
+    "akjkasncurbsu3223",
+    "finrnuoenvbuc2835",
+    "disuhgoerviow2802",
+    "finrnuoenvbuc2835"
+}
+print(codici_fiscali) #ne farà tre perchè due uguali
+
+"""3) Creare un database di prodotti che posso cercare con un codice univoco DIZIONARIO"""
+
+listino_prezzi = {
+    "LAP1": ProdottoRecord("Laptop", 1200.0),
+    "LAP2": ProdottoRecord("LaptopPRO",3000.0)
+}
+
+"""4) Memorizzare le coordinate gps della nuova sede di ROMA TUPLA"""
+
+magazzino_ROMA = (45,9)
+
+"""5) Tenere traccia delle categorie di clienti che hanno fatto un ordine in un certo range temporale  SET"""
+
+categorie = set()
+categorie.add("Gold")
+
+print("=================================================================================================")
+
+#counter
+lista_clienti={
+    ClienteRecord("Mario Rossi","mariorossi@gmail.com","Gold"),
+    ClienteRecord("Vik Vik","vikivk@gmail.com","Gold"),
+    ClienteRecord("Tip Tap","tiptap@gmail.com","Gold"),
+    ClienteRecord("Marco Rossi", "marco.rossi@outlook.it", "Silver"),
+    ClienteRecord("Elena Bianchi", "elena88@gmail.com", "Silver"),
+    ClienteRecord("Luca Verga", "luca.v@yahoo.it", "Bronze"),
+    ClienteRecord("Sara Neri", "sara.neri@gmail.com", "Bronze")
+}
+
+categorie = [c.categoria for c in lista_clienti]
+categorie_counter = Counter(categorie)
+
+print("Distribuzione categorie clienti")
+print(categorie_counter)
+
+print("Categorie più frequenti")
+print(categorie_counter.most_common(3)) # con valore dato
+
+print("Totale:")
+print(categorie_counter.total())
+
+vendite_gennaio = Counter(
+    {"Laptop": 13, "Stampante": 1}
+)
+vendite_febbraio = Counter(
+    {"Laptop": 3, "Tablet": 21}
+)
+
+#aggregare
+vendite = vendite_febbraio+vendite_gennaio
+print(f"Vendite del bimestre: {vendite}")
+
+#differenza
+print(f"Differenza nella vendita da gennaio a febbraio: {vendite_gennaio-vendite_febbraio}")
+
+#modifiche valori
+vendite_gennaio["Laptop"] += 4
+print(f"Vendite gennaio: {vendite_gennaio}")
+
+#da ricordare per COUNTER
+c.most_common(n) #restituisce gli n elementi più frequenti
+c.total() #somma conteggi
