@@ -252,5 +252,18 @@ vendite_gennaio["Laptop"] += 4
 print(f"Vendite gennaio: {vendite_gennaio}")
 
 #da ricordare per COUNTER
-c.most_common(n) #restituisce gli n elementi più frequenti
-c.total() #somma conteggi
+#c.most_common(n) #restituisce gli n elementi più frequenti
+#c.total() #somma conteggi
+
+#DEQUE code (collections.deque())
+#posso aggiungere e togliere a dx e sx
+#per FIFO ->append e popleft oppure ma meno intuitivo appendleft e pop
+#per LIFO ->append e pop oppure appendleft e popleft
+
+#PRORITY QUEUES
+#aggiunge un valore in un ordine voluto e non prescritto
+#elementi gestiti per priorità
+#tuple valore, priorità
+#e poi avere un __lt__ per priorità magari pesata
+#heapq o queue.PriorityQueue ->due implementazioni che gestiscono le priorità
+
