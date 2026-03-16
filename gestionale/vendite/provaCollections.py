@@ -1,11 +1,11 @@
 import copy
-from collections import Counter
+from collections import Counter, deque
 
 from networkx.classes import non_edges
 
 from gestionale.core.clienti import ClienteRecord
 from gestionale.core.prodotti import ProdottoRecord
-from gestionale.vendite.ordini import Ordine
+from gestionale.vendite.ordini import Ordine, RigaOrdine
 
 p1 = ProdottoRecord("Laptop", 1200.0)
 p2 = ProdottoRecord("Mouse", 20.0)
@@ -211,7 +211,7 @@ categorie.add("Gold")
 print("=================================================================================================")
 
 #counter
-lista_clienti={
+lista_clienti=[
     ClienteRecord("Mario Rossi","mariorossi@gmail.com","Gold"),
     ClienteRecord("Vik Vik","vikivk@gmail.com","Gold"),
     ClienteRecord("Tip Tap","tiptap@gmail.com","Gold"),
@@ -219,7 +219,7 @@ lista_clienti={
     ClienteRecord("Elena Bianchi", "elena88@gmail.com", "Silver"),
     ClienteRecord("Luca Verga", "luca.v@yahoo.it", "Bronze"),
     ClienteRecord("Sara Neri", "sara.neri@gmail.com", "Bronze")
-}
+]
 
 categorie = [c.categoria for c in lista_clienti]
 categorie_counter = Counter(categorie)
@@ -266,4 +266,25 @@ print(f"Vendite gennaio: {vendite_gennaio}")
 #tuple valore, priorità
 #e poi avere un __lt__ per priorità magari pesata
 #heapq o queue.PriorityQueue ->due implementazioni che gestiscono le priorità
+
+#Deque
+print("===================================================================================")
+print("DEQUE")
+
+coda_ordini= deque()
+
+for i in range(1,10):
+    cliente = ClienteRecord(f"Cliente {i}",f"cliente{i}@gmail.com","Gold")
+    prodotto = ProdottoRecord(f"Prodotto{i}", 100.0*i)
+    ordine = Ordine([RigaOrdine(prodotto,1)],cliente)
+    coda_ordini.append(ordine)
+
+print(f"Ordini in coda: {len(coda_ordini)}")
+
+while coda_ordini: #cicla finchè ci sono elementi
+    ordine_corrente = coda_ordini.popleft()
+    print(f"Sto gestendo l'ordine del cliente {ordine_corrente.cliente}")
+
+print(f"Ho processato tutto gli ordini")
+
 
