@@ -1,10 +1,8 @@
 import copy
 from collections import Counter, deque
 
-from networkx.classes import non_edges
-
-from gestionale.core.clienti import ClienteRecord
-from gestionale.core.prodotti import ProdottoRecord
+from gestionale.core.cliente import ClienteRecord
+from gestionale.core.prodotto import ProdottoRecord
 from gestionale.vendite.ordini import Ordine, RigaOrdine
 
 p1 = ProdottoRecord("Laptop", 1200.0)

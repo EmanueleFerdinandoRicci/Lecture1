@@ -91,18 +91,7 @@ def calcola_totale(elementi):
         total += elem.prezzo_finale()
     return total
 
-from dataclasses import dataclass
 
-@dataclass
-class ProdottoRecord:
-    name: str
-    prezzo_unitario: float
-
-    def __hash__(self):
-        return hash((self.name,self.prezzo_unitario))
-
-    def __str__(self):
-        return f"{self.name} -- {self.prezzo_unitario}"
 
 from typing import Protocol
 

@@ -2,7 +2,8 @@
 #-una classe Fattura che contiene un Ordine, un numero fattura e una data
 #-un metodo genera_fattura() che restituisce una stringa formattata con info
 from gestionale.core.clienti import Cliente
-from gestionale.core.prodotti import ProdottoRecord
+from gestionale.core.prodotto import ProdottoRecord
+
 from gestionale.vendite.ordini import Ordine, RigaOrdine
 from dataclasses import dataclass
 from datetime import date

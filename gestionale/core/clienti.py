@@ -28,15 +28,7 @@ class Cliente:
             raise ValueError("Attenzione, categoria non valida. Scegliere tra Gold, Silver e Bronze")
         self._categoria = stringa
 
-from dataclasses import dataclass
-@dataclass
-class ClienteRecord:
-    name: str
-    email: str
-    categoria: str
 
-    def __str__(self):
-        return f"{self.name} ({self.email}) - {self.categoria}"
     
 def _test_modulo():
     myclient1 = Cliente(nome="Fulvio Bianchi", email="fulvio@google.com", categoria="Gold")
