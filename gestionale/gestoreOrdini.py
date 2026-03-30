@@ -19,15 +19,15 @@ class GestoreOrdini:
         self._ordini_processati = []
         self._statistiche_prodotti = Counter()
         self._ordini_per_categoria = defaultdict(list)
-        self._dao = DAO()
+        #self._dao = DAO()
         self._allP = []
         self._allC = []
         self._fill_data()
 
     def _fill_data(self):
         #leggo prodotti e clienti dal db e poi creo degli ordini randomici per testare la mia app
-        self._allP.extend(self._dao.getAllProdotti())
-        self._allC.extend(self._dao.getAllClienti())
+        self._allP.extend(DAO().getAllProdotti())
+        self._allC.extend(DAO().getAllClienti())
 
         for i in range(10):
             indexP = random.randint(0,len(self._allP)-1)
